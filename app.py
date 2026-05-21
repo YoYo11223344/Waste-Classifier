@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_webrtc import webrtc_streamer, VideoProcessorBase
-import tensorflow as tf
+from tflite_runtime.interpreter import Interpreter
 import numpy as np
 import cv2
 import av
@@ -306,7 +306,7 @@ if 'stats' not in st.session_state:
 @st.cache_resource
 def load_model():
     try:
-        interpreter = tf.lite.Interpreter(model_path=MODEL_PATH)
+        interpreter = Interpreter(model_path=MODEL_PATH)
         interpreter.allocate_tensors()
 
         input_details = interpreter.get_input_details()
